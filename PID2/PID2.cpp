@@ -141,4 +141,3 @@ void PID::setPrevInput(float prevInput)
 {
 	this->prevInput = prevInput;															// Set the previous input value
 }
-
