@@ -35,26 +35,47 @@ class PID
 {
 	public:																														
 		PID();																														// Default constructor
-		PID(float kp, float pLimit);																			// P controller constructor
-		PID(float kp, float ki, float kd, float iLimit, float pidLimit);	// PID controller constructor
+		PID(float kp, float pLimit);																			// P controller constructors
+		PID(float kp, float pLowerLimit, float pUpperLimit);
+		PID(float kp, float ki, float kd, float iLimit, float pidLimit);	// PID controller constructors
+		PID(float kp, float ki, float kd, float iLowerLimit, 
+			float iUpperLimit, float pidLowerLimit, float pidUpperLimit);
 		void begin(float kp, float pLimit);																// Initialise the P controller
-		void begin(float kp, float ki, float kd, 													// Initialise the PID controller
-			float iLimit, float pidLimit);																								
+		void begin(float kp, float pLowerLimit, float pUpperLimit);
+		void begin(float kp, float ki, float kd, 												  // Initialise the PID controller
+			float iLimit, float pidLimit);
+		void begin(float kp, float ki, float kd, float iLowerLimit,
+			float iUpperLimit, float pidLowerLimit, float pidUpperLimit);
 		float pCalculate(float setpoint, float input);										// Calculate the classic P control loop
 		float pidCalculate(float setpoint, float input, float dt);				// Calculate the classic PID control loop
 		float pidCalculateDOM(float setpoint, float input, float dt);			// Calculate the "Derivative on Measurement" PID control loop
 		void setKp(float kp);																							// Set the proportional P gain
 		void setKi(float ki);																							// Set the integral I gain
 		void setKd(float kd);																							// Set the derivative D gain
-		void setILimit(float iLimit);																			// Set the integral I limit to prevent integral wind-up
-		void setPIDLimit(float pidLimit);																	// Set the PID controller output limit
+		void setILimit(float iLimit);																			// Set the integral I lower and upper limits to prevent integral wind-up																																				
+		void setPIDLimit(float pidLimit);																	// Set the PID controller lower and upper output limits
+		void setILowerLimit(float iLowerLimit);														// Set the integral I lower limit
+		void setIUpperLimit(float iUpperLimit);														// Set the integral I upper limit
+		void setPIDLowerLimit(float pidLowerLimit);												// Set the PID controller lower output limit
+		void setPIDUpperLimit(float pidUpperLimit);												// Set the PID controller upper output limit
 		void setPrevError(float prevError);																// Set the previous error value
 		void setPrevInput(float prevInput);																// Set the previous input value
+		float getKp();																										// Get the proportional P gain
+		float getKi();																										// Get the integral I gain
+		float getKd();																										// Get the derivative D gain
+		float getILimit();																								// Get the integral limits
+		float getPIDLimit();																							// Get the PID output limits
+		float getILowerLimit();																						// Get the integral lower limit
+		float getIUpperLimit();																						// Get the integral upper limit
+		float getPIDLowerLimit();																					// Get the PID output lower limit
+		float getPIDUpperLimit();																					// Get the PID output upper limit
+		float getPrevError();																							// Get the previous error
+		float getPrevInput();																							// Get the previous input
 	//private:																													
 		float kp, ki, kd;																									// PID gain terms
 		float iTerm;																											// The summing integral I term
 		float prevError, prevInput;																				// Previous error and input used to calculate the derivative D term										
-		float iLimit, pidLimit;																						// I and PID output limits
+		float iLowerLimit, iUpperLimit, pidLowerLimit, pidUpperLimit;			// Integral I and PID lower and upper output limits
 };
 
 #endif
