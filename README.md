@@ -25,9 +25,11 @@ The PID object is created (instantiated) declaring it, for example:
 
 **_PID myPID;_**
 
-The PID control loop is then initialised using the "begin" function together with the PID gain, as well as the integral and PID limit arguments:
+The PID control loop is then initialised using the "begin" function together with the PID gains, as well as the integral and PID limit arguments:
 
 **_myPID.begin(kp, ki, kd, iMinLimit, iMaxLimit, pidMinLimit, pidMaxLimit);_**
+
+The purpose of the integral gain limits is to prevent integral wind-up. Integral wind-up can occur if the system doesn't resposed quickly enough to a change in the setpoint. In this condition the integral term can steady grow to a large value and disrupt the control system. The PID controller's output limits are also be bounded limits.
 
 Alternatively, it's also possible to also pass the arguments to the constructor and forgo having to call the "begin" member function:
 
@@ -41,20 +43,26 @@ The difference between the classic and derivative on measurement controllers, is
 
 Whereas the the derivative on measurement controller, subtracts the previous input from the current input:
 
-**_float inputError = input - prevInput;_**
-**_float dTerm = kd * -inputError / dt;_**
+**_float inputError = input - prevInput;
+	float dTerm = kd * -inputError / dt;_**
 
 The purpose of the derivative on measurement controller is to remove the derivative kick that can sometimes happen due to fast changes in the setpoint.
 
-To compute the PID output call either: pCalculate(), pidCalculate(), or for derivate on measurement: pidCalculateDOM() functions. For example the classic PID function take the setpoint, input and sample time "dt" as arguments:
+To compute the PID output call either the pCalculate(), pidCalculate(), or for derivate on measurement the pidCalculateDOM() member functions. For example the classic PID function takes the setpoint, input and sample time "dt" as arguments:
 
-**_myPID.pidCalculate(setpoint, input, dt);
+**_myPID.pidCalculate(setpoint, input, dt);_**
 
-The sample time dt is the time in seconds and must be externally supplied. This PID library doesn't provide the sample time itself, as there may be a number of PID instances that require the same sample time, or conversely a number that require differnet times.
+The sample time dt is the time in seconds and must be externally supplied. 
 
-To calculate the sample time using the Arduino micros() function
+This PID library doesn't provide the sample time itself, as there may be a number of PID controller instances that require the same sample time, or conversely a number of instances that require differnet times.
 
-The kp, ki and kd arguments are float data types and represent the PID control loop's proportial (P), integral (I) and derivate (D) gains. The iLimit and pidLimit arguments are also float data types. ilimit prevents the integral term from the integral termprevents integral wind-up. The pidLimit
+To calculate the sample time using the Arduino micros() function:
+
+**_uint32_t timeMicros = micros();  
+  dt = (timeMicros - lastTime) / 1.0e6f;
+  lastTime = timeMicros;_**
+
+where "lastTime" is a uint32_t data type and "dt" is a float.
 
 ### __Example Code__
 
