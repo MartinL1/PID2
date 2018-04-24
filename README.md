@@ -44,7 +44,7 @@ The difference between the classic and derivative on measurement controllers, is
 Whereas the the derivative on measurement controller, subtracts the previous input from the current input:
 
 **_float inputError = input - prevInput;
-	float dTerm = kd * -inputError / dt;_**
+float dTerm = kd * -inputError / dt;_**
 
 The purpose of the derivative on measurement controller is to remove the derivative kick that can sometimes happen due to fast changes in the setpoint.
 
@@ -59,10 +59,10 @@ This PID library doesn't provide the sample time itself, as there may be a numbe
 To calculate the sample time using the Arduino micros() function:
 
 **_uint32_t timeMicros = micros();  
-  dt = (timeMicros - lastTime) / 1.0e6f;
-  lastTime = timeMicros;_**
+dt = (timeMicros - lastTime) / 1.0e6f;
+lastTime = timeMicros;_**
 
-where "lastTime" is a uint32_t data type and "dt" is a float.
+where "lastTime" is a **_uint32_t_** data type and "dt" is a **_float_**.
 
 ### __Example Code__
 
