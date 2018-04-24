@@ -29,7 +29,7 @@ The PID control loop is then initialised using the "begin" function together wit
 
 **_myPID.begin(kp, ki, kd, iMinLimit, iMaxLimit, pidMinLimit, pidMaxLimit);_**
 
-The purpose of the integral gain limits is to prevent integral wind-up. Integral wind-up can occur if the system doesn't resposed quickly enough to a change in the setpoint. In this condition the integral term can steady grow to a large value and disrupt the control system. The PID controller's output limits are also be bounded limits.
+The purpose of the integral gain limits is to prevent integral wind-up. Integral wind-up can occur if the system isn't able to, or doesn't resposed quickly enough to a change in the setpoint. In this condition the integral term can steady grow to a large value and disrupt the control system. The PID controller's output limits are also be bounded limits.
 
 Alternatively, it's also possible to also pass the arguments to the constructor and forgo having to call the "begin" member function:
 
@@ -43,8 +43,8 @@ The difference between the classic and derivative on measurement controllers, is
 
 Whereas the the derivative on measurement controller, subtracts the previous input from the current input:
 
-**_float inputError = input - prevInput;
-float dTerm = kd * -inputError / dt;_**
+**_float inputError = input - prevInput;_**
+**_float dTerm = kd * -inputError / dt;_**
 
 The purpose of the derivative on measurement controller is to remove the derivative kick that can sometimes happen due to fast changes in the setpoint.
 
@@ -58,11 +58,15 @@ This PID library doesn't provide the sample time itself, as there may be a numbe
 
 To calculate the sample time using the Arduino micros() function:
 
-**_uint32_t timeMicros = micros();  
-dt = (timeMicros - lastTime) / 1.0e6f;
-lastTime = timeMicros;_**
+**_uint32_t timeMicros = micros();_** 
+**_dt = (timeMicros - lastTime) / 1.0e6f;_**
+**_lastTime = timeMicros;_**
 
 where "lastTime" is a **_uint32_t_** data type and "dt" is a **_float_**.
+
+The simpler P controller doesn't require the "dt" sample time and only the setpoint and input are necessary:
+
+**_myPID.pCalculate(setpoint, input);_**
 
 ### __Example Code__
 
