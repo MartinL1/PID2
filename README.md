@@ -48,7 +48,7 @@ The purpose of the derivative on measurement controller is to remove the derivat
 
 To compute the PID output call either the pCalculate(), pidCalculate(), or for derivate on measurement the pidCalculateDOM() member functions. For example the classic PID function takes the setpoint, input and sample time "dt" as arguments:
 
-**_myPID.pidCalculate(setpoint, input, dt);_**
+**_float pidOutput = myPID.pidCalculate(setpoint, input, dt);_**
 
 The sample time dt is the time in seconds and must be externally supplied. 
 
@@ -64,7 +64,7 @@ where "lastTime" is a **_uint32_t_** data type and "dt" is a **_float_**.
 
 The simpler P controller doesn't require the "dt" sample time and only the setpoint and input are necessary:
 
-**_myPID.pCalculate(setpoint, input);_**
+**_float pidOutput = myPID.pCalculate(setpoint, input);_**
 
 ### __Example Code__
 
