@@ -1,5 +1,3 @@
-# Under Construction
-
 # PID2
 PID Controller class that implements both the classic and "derivative on measurement" floating point PID controllers.
 
@@ -43,7 +41,7 @@ The difference between the classic and derivative on measurement controllers, is
 
 Whereas the the derivative on measurement controller, subtracts the previous input from the current input:
 
-**_float inputError = input - prevInput;
+**_float inputError = input - prevInput;  
 float dTerm = kd * -inputError / dt;_**
 
 The purpose of the derivative on measurement controller is to remove the derivative kick that can sometimes happen due to fast changes in the setpoint.
@@ -58,8 +56,8 @@ This PID library doesn't provide the sample time itself, as there may be a numbe
 
 To calculate the sample time using the Arduino micros() function:
 
-**_uint32_t timeMicros = micros();
-dt = (timeMicros - lastTime) / 1.0e6f;
+**_uint32_t timeMicros = micros();  
+dt = (timeMicros - lastTime) / 1.0e6f;  
 lastTime = timeMicros;_**
 
 where "lastTime" is a **_uint32_t_** data type and "dt" is a **_float_**.
