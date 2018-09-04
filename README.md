@@ -39,7 +39,7 @@ The difference between the classic and derivative on measurement controllers, is
 
 **_float dTerm = kd * (error - prevError) / dt;_**
 
-Whereas the the derivative on measurement controller, subtracts the previous input from the current input:
+Whereas the derivative on measurement controller, subtracts the previous input from the current input:
 
 **_float inputError = input - prevInput;  
 float dTerm = kd * -inputError / dt;_**
