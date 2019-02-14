@@ -1,54 +1,74 @@
 # PID2
 PID Controller class that implements both the classic and "derivative on measurement" floating point PID controllers.
 
-### __Version__
+## __Version__
 
 - Version V1.0.0 -- Intial release
 
-### __Arduino Compatibility__
+## __Arduino Compatibility__
 
 - All Arduino Boards
 
-### __Installation__
+## __Installation__
 
 After download simply un-zip the file and place the "PID2" directory in your ...Arduino/libraries folder. The Arduino folder is the one where your sketches are usually located.
 
-### __Usage__
+## __Usage__
+
+### __PID2 Library__
 
 Simply include the PID2.h file at the beginning of your sketch:
 
-**_#include <PID2.h>_**
+```
+#include <PID2.h>
+```
+---
+### __Initialisation___
 
-The PID object is created (instantiated) declaring it, for example:
+The PID object is created (instantiated) by declaring it, for example:
 
-**_PID myPID;_**
+```
+PID myPID;
+```
 
 The PID control loop is then initialised using the "begin" function together with the PID gains, as well as the integral and PID limit arguments:
 
-**_myPID.begin(kp, ki, kd, iMinLimit, iMaxLimit, pidMinLimit, pidMaxLimit);_**
+```
+myPID.begin(kp, ki, kd, iMinLimit, iMaxLimit, pidMinLimit, pidMaxLimit);
+```
 
 The purpose of the integral gain limits is to prevent integral wind-up. Integral wind-up can occur if the system isn't able to, or doesn't resposed quickly enough to a change in the setpoint. In this condition the integral term can steady grow to a large value and disrupt the control system. The PID controller's output limits are also be bounded limits.
 
 Alternatively, it's also possible to also pass the arguments to the constructor and forgo having to call the "begin" member function:
 
-**_PID myPID(kp, ki, kd, iMinLimit, iMaxLimit, pidMinLimit, pidMaxLimit);_**
+```
+PID myPID(kp, ki, kd, iMinLimit, iMaxLimit, pidMinLimit, pidMaxLimit);
+```
+---
+### Control Loop Options
 
 This PID library offers the classic P and PID, as well as "derivative on measurement" PID controllers.
  
 The difference between the classic and derivative on measurement controllers, is the the classic controller calculates the derivate term by subtracting the previous error from the current error, before multiplying by the derivate gain "Kd" and dividing by the sample time "dt":
 
-**_float dTerm = kd * (error - prevError) / dt;_**
+```
+float dTerm = kd * (error - prevError) / dt;
+```
 
 Whereas the derivative on measurement controller, subtracts the previous input from the current input:
 
-**_float inputError = input - prevInput;  
-float dTerm = kd * -inputError / dt;_**
+```
+float inputError = input - prevInput;  
+float dTerm = kd * -inputError / dt;
+```
 
 The purpose of the derivative on measurement controller is to remove the derivative kick that can sometimes happen due to fast changes in the setpoint.
 
 To compute the PID output call either the pCalculate(), pidCalculate(), or for derivate on measurement the pidCalculateDOM() member functions. For example the classic PID function takes the setpoint, input and sample time "dt" as arguments:
 
-**_float pidOutput = myPID.pidCalculate(setpoint, input, dt);_**
+```
+float pidOutput = myPID.pidCalculate(setpoint, input, dt);
+```
 
 The sample time dt is the time in seconds and must be externally supplied. 
 
@@ -56,16 +76,20 @@ This PID library doesn't provide the sample time itself, as there may be a numbe
 
 To calculate the sample time using the Arduino micros() function:
 
-**_uint32_t timeMicros = micros();  
+```
+uint32_t timeMicros = micros();  
 dt = (timeMicros - lastTime) / 1.0e6f;  
-lastTime = timeMicros;_**
+lastTime = timeMicros;
+```
 
 where "lastTime" is a **_uint32_t_** data type and "dt" is a **_float_**.
 
 The simpler P controller doesn't require the "dt" sample time and only the setpoint and input are necessary:
 
-**_float pidOutput = myPID.pCalculate(setpoint, input);_**
-
+```
+float pidOutput = myPID.pCalculate(setpoint, input);
+```
+---
 ### __Example Code__
 
 None.
