@@ -1,1 +1,45 @@
+#######################################
+# Syntax Coloring Map For The BMP280
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+PID		    								KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin											KEYWORD2
+pCalculate								KEYWORD2
+pidCalculate							KEYWORD2
+pidCalculateDOM						KEYWORD2
+setKp											KEYWORD2
+setKi											KEYWORD2
+setKd											KEYWORD2
+setILimits								KEYWORD2
+setPIDLimits							KEYWORD2
+setIMinLimit							KEYWORD2
+setIMaxLimit 							KEYWORD2
+setPIDMinLimit 						KEYWORD2
+setPIDMaxLimit 						KEYWORD2
+setPrevError		 					KEYWORD2
+setPrevInput		 					KEYWORD2
+getKp						 					KEYWORD2
+getKi						 					KEYWORD2
+getKd						 					KEYWORD2
+getILimit				 					KEYWORD2
+getPIDLimit			 					KEYWORD2
+getIMinLimit		 					KEYWORD2
+getIMaxLimit		 					KEYWORD2
+getPIDMinLimit	 					KEYWORD2
+getPIDMaxLimit						KEYWORD2
+getPrevError		 					KEYWORD2
+getPrevInput		 					KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
 
