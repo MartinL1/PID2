@@ -159,4 +159,4 @@ float PID::getIMaxLimit() { return iMaxLimit; }									// Get the integral maxi
 float PID::getPIDMinLimit() { return pidMinLimit; }							// Get the PID output minimum limit
 float PID::getPIDMaxLimit() { return pidMaxLimit; }							// Get the PID output maximum limit
 float PID::getPrevError() { return prevError; }									// Get the previous error value
-float PID::getPrevInput() { return prevInput; } // Get the previous input value
+float PID::getPrevInput() { return prevInput; } 								// Get the previous input value
