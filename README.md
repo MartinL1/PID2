@@ -1,6 +1,10 @@
 # PID2
 PID Controller class that implements both the classic and "derivative on measurement" floating point PID controllers.
 
+The PID Controller was designed for the various control loops on the Falcon 1, 2 and 3 multi-rotor (drone) flight controllers:
+
+
+
 ## __Version__
 
 - Version V1.0.0 -- Intial release
